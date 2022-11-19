@@ -1,0 +1,217 @@
+/*Wap to do the insertion in the bst and do the following on the created bst
+1. Inorder traversal
+2. Pre order
+3. Post order
+4. Finding highest element in the tree
+5. Find lowest element in the tree
+6. Display the content of tree in increasing order
+7. Find height. */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+struct node *root = NULL;
+
+struct node *createNode(int data)
+{
+    struct node *newNode = (struct node *)malloc(sizeof(struct node));
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+void insertNode(int data)
+{
+    struct node *newNode = createNode(data);
+    if (root == NULL)
+    {
+        root = newNode;
+    }
+    else
+    {
+        struct node *temp = root;
+        while (temp != NULL)
+        {
+            if (data < temp->data)
+            {
+                if (temp->left == NULL)
+                {
+                    temp->left = newNode;
+                    break;
+                }
+                else
+                {
+                    temp = temp->left;
+                }
+            }
+            else
+            {
+                if (temp->right == NULL)
+                {
+                    temp->right = newNode;
+                    break;
+                }
+                else
+                {
+                    temp = temp->right;
+                }
+            }
+        }
+    }
+}
+
+void inOrder(struct node *temp)
+{
+    if (temp != NULL)
+    {
+        inOrder(temp->left);
+        printf("%d ", temp->data);
+        inOrder(temp->right);
+    }
+}
+
+void preOrder(struct node *temp)
+{
+    if (temp != NULL)
+    {
+        printf("%d ", temp->data);
+        preOrder(temp->left);
+        preOrder(temp->right);
+    }
+}
+
+void postOrder(struct node *temp)
+{
+    if (temp != NULL)
+    {
+        postOrder(temp->left);
+        postOrder(temp->right);
+        printf("%d ", temp->data);
+    }
+}
+
+int findMax(struct node *temp)
+{
+    if (temp == NULL)
+    {
+        return -1;
+    }
+    else
+    {
+        while (temp->right != NULL)
+        {
+            temp = temp->right;
+        }
+        return temp->data;
+    }
+}
+
+int findMin(struct node *temp)
+{
+    if (temp == NULL)
+    {
+        return -1;
+    }
+    else
+    {
+        while (temp->left != NULL)
+        {
+            temp = temp->left;
+        }
+        return temp->data;
+    }
+}
+
+void displayIncreasing(struct node *temp)
+{
+    if (temp != NULL)
+    {
+        displayIncreasing(temp->left);
+        printf("%d ", temp->data);
+        displayIncreasing(temp->right);
+    }
+}
+
+int findHeight(struct node *temp)
+{
+    if (temp == NULL)
+    {
+        return -1;
+    }
+    else
+    {
+        int leftHeight = findHeight(temp->left);
+        int rightHeight = findHeight(temp->right);
+        if (leftHeight > rightHeight)
+        {
+            return leftHeight + 1;
+        }
+        else
+        {
+            return rightHeight + 1;
+        }
+    }
+}
+
+int main()
+{
+    int choice, data;
+    while (1)
+    {
+        printf(" 1. Insert Node in BST 2. Inorder Traversal 3. Preorder Traversal 4. Postorder Traversal 5. Find Max 6. Find Min 7. Display Increasing 8. Find Height 9. Exit ");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            printf("Enter data to insert: ");
+            scanf("%d", &data);
+            insertNode(data);
+            break;
+        case 2:
+            printf("Inorder Traversal: ");
+            inOrder(root);
+            printf("  ");
+            break;
+        case 3:
+            printf("Preorder Traversal: ");
+            preOrder(root);
+            printf("  ");
+            break;
+        case 4:
+            printf("Postorder Traversal: ");
+            postOrder(root);
+            printf("  ");
+            break;
+        case 5:
+            printf("Max: %d  ", findMax(root));
+            break;
+        case 6:
+            printf("Min: %d  ", findMin(root));
+            break;
+
+        case 7:
+            printf("Increasing Order: ");
+            displayIncreasing(root);
+            printf("  ");
+            break;
+        case 8:
+            printf("Height: %d  ", findHeight(root));
+            break;
+        case 9:
+            exit(0);
+        default:
+            printf("Invalid Choice  ");
+
+        }
+    }
+    return 0;
+}
