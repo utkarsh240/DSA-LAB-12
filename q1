@@ -215,3 +215,10 @@ int main()
     }
     return 0;
 }
+
+
+// OUTPUT
+
+1. Insert Node in BST 2. Inorder Traversal 3. Preorder Traversal 4. Postorder Traversal 5. Find Max 6. Find Min 7. Display Increasing 8. Find Height 9. Exit Enter your choice: 1
+Enter data to insert: 5
+Height: 0 
